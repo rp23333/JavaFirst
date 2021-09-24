@@ -1,5 +1,7 @@
 package IntroToJava;
 
+//Rohan Patel
+
 public class CoolClock {
 	
 	private double theTime;
