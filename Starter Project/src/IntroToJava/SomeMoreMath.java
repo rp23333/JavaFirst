@@ -76,7 +76,7 @@ public class SomeMoreMath {
 		tester.makeInteger(3.756);
 		
 		// output: 8
-		tester.roundToNearestWhole(7.4);
+		tester.roundToNearestWhole(7.8);
 	}
 
 }
