@@ -1,0 +1,332 @@
+//  Pong Project
+//  Rohan Patel
+
+
+package IntroToJava;
+
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class PongProject extends JPanel implements KeyListener {
+	
+	// constants that are predefined and won't change as the program runs
+	private final int WIDTH = 800, HEIGHT = 700, WINDOW_HEIGHT = 650;
+	private final int PADDLE_WIDTH = 20, DIAM = 25, PADDLE_HEIGHT = 170;
+	private final int PADDLE_SPEED = 4;
+	private final int BACKGROUNDCOLOR = 150, INTBALLCOLORR = 100, INTBALLCOLORG = 75, INTBALLCOLORB = 200;
+
+	// important variables that will change throughout the code
+	private int speedX = 4;
+	private int speedY = 4;
+	private int ballX = WIDTH/2-DIAM/2;
+	private int ballY = WINDOW_HEIGHT/2-DIAM/2;
+	private int paddle1Y = HEIGHT/2-PADDLE_HEIGHT/2, paddle2Y = HEIGHT/2-PADDLE_HEIGHT/2;
+	private int paddle1Move = 0, paddle2Move = 0;
+	
+	// the speed of the AI paddle, it is slower than the ball speed so it is possible to beat it
+	private double speedAI = 3.5;
+	
+	// these integers and boolean are used for the  extra feature which I explain later on in the code
+	private int ballColorR = 100, ballColorG = 75, ballColorB = 200;
+	private int collisionCount = 0;
+	
+	// this boolean draws items in the draw method only when true
+	private boolean gameRunning = true;
+	
+	// keeps track of the player's scores
+	private int score1 = 0;
+	private int score2 = 0;
+	
+	// these booleans keep track of the game mode, one or two players
+	private boolean onePlayer = false, twoPlayer = false;
+	
+	
+	// this method moves the ball continuously
+	public void move_ball() {
+		
+		//  the x and y values of the ball increase according to the set speed
+		ballX+=speedX;
+		ballY+=speedY;
+	}
+	
+	// this method moves the paddles at each timestep
+	public void move_paddles() {
+		paddle1Y+=paddle1Move;
+		paddle2Y+=paddle2Move;
+		
+		// these are the paddle movements for the AI
+		if(ballY-DIAM<paddle2Y && onePlayer == true) {
+			paddle2Y-=speedAI;
+		}
+		if(ballY-DIAM>paddle2Y+PADDLE_HEIGHT && onePlayer == true) {
+			paddle2Y+= speedAI;
+		}
+		
+		// these if statements prevent the paddles from going off the screen
+		if (paddle1Y<=0) {
+			paddle1Y=0;
+		}
+		if (paddle2Y<=0) {
+			paddle2Y=0;
+		}
+		if (paddle1Y+PADDLE_HEIGHT>=WINDOW_HEIGHT) {
+			paddle1Y=WINDOW_HEIGHT-PADDLE_HEIGHT;
+		}
+		if (paddle2Y+PADDLE_HEIGHT>=WINDOW_HEIGHT) {
+			paddle2Y=WINDOW_HEIGHT-PADDLE_HEIGHT;
+		}
+		
+		
+	}
+	
+	// this method checks if there are any bounces to take care of,
+	// and if the ball has reached a left/right wall it adds to 
+	// the corresponding player's score
+	public void check_collisions() {
+		
+		if (ballX+DIAM>=WIDTH-PADDLE_WIDTH&&paddle2Y<=ballY&&ballY<=paddle2Y+PADDLE_HEIGHT) {
+			speedX=-speedX;
+			// adds to the collision count used for the extra feature
+			collisionCount++;
+		}
+		else if (ballX>=DIAM+WIDTH) {
+			score1++;
+			ballX=WIDTH/2-DIAM/2;
+			ballY = WINDOW_HEIGHT/2-DIAM/2;
+			speedY=-speedY;
+		}
+		if (ballX<=PADDLE_WIDTH&&paddle1Y<=ballY&&ballY<=paddle1Y+PADDLE_HEIGHT) {
+			speedX=-speedX;
+			// adds to the collision count used for the extra feature
+			collisionCount++;
+		}
+		else if (ballX<=0-DIAM) {
+			score2++;
+			ballX=WIDTH/2-DIAM/2;
+			ballY = WINDOW_HEIGHT/2-DIAM/2;
+			speedY=-speedY;
+		}
+		if (ballY<=0) {
+			speedY=-speedY;
+		}
+		if (ballY+DIAM>=WINDOW_HEIGHT) {
+			speedY=-speedY;
+		}
+		// This is my extra feature
+		// each time the ball collides with a paddle, the color of the ball 
+		// slowly gets closer to the color of the background and the ball 
+		//becomes less visible and harder to see as the game progresses
+		
+		if (ballColorR<=BACKGROUNDCOLOR*9/10 && ballColorG<=BACKGROUNDCOLOR*11/10 && ballColorB>=BACKGROUNDCOLOR*9/10) {
+			ballColorR= INTBALLCOLORR+collisionCount*2;
+			ballColorG= INTBALLCOLORG+collisionCount*4;
+			ballColorB= INTBALLCOLORB-collisionCount*2;
+		}
+		
+		
+
+	}
+	
+
+	// defines what we want to happen anytime we draw the game
+	// you simply need to fill in a few parameters here
+	public void paint(Graphics g) {
+		
+		// background color is gray
+		g.setColor(new Color(BACKGROUNDCOLOR,BACKGROUNDCOLOR,BACKGROUNDCOLOR));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+			
+		// when a player or AI gets a score of 5, they are the winner
+		if (score1==5) {
+			Font f = new Font("Times New Roman", Font.BOLD, 30);
+			g.setFont(f);
+			g.setColor(Color.red);
+			g.drawString("Player One Wins!", WIDTH/3, WINDOW_HEIGHT/2);
+			// game ends and other items will no longer be drawn
+			gameRunning = false;
+		}
+		else if (score2==5) {
+			Font f = new Font("Times New Roman", Font.BOLD, 30);
+			g.setFont(f);
+			g.setColor(Color.red);
+			g.drawString("Player Two Wins!", WIDTH/3, WINDOW_HEIGHT/2);
+			// game ends and other items will no longer be drawn
+			gameRunning = false;
+		}
+		
+		// only runs when the game is going on 
+		if (gameRunning) {
+		
+			// draws the ball at the set x and y values
+			// the ball colors are not constant, they change as the rounds progress
+			g.setColor(new Color(ballColorR,ballColorG,ballColorB));
+			g.fillOval(ballX, ballY, DIAM, DIAM);
+			
+			
+			// draws the paddles according to the x and y values set by pressing keys
+			g.setColor(new Color(50,10,200));
+			g.fillRect(0, paddle1Y, PADDLE_WIDTH,PADDLE_HEIGHT);
+			g.setColor(new Color(50,10,200));
+			g.fillRect(WIDTH-PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH,PADDLE_HEIGHT);
+			
+			// writes the score of the game - you just need to fill the scores in
+			Font f = new Font("Times New Roman", Font.BOLD, 20);
+			g.setFont(f);
+			g.setColor(Color.red);
+			g.drawString("P1 Score: "+ score1, WIDTH/5, 20);
+			g.drawString("P2 Score: "+ score2, WIDTH*3/5, 20);
+		}
+		
+	}
+
+	// defines what we want to happen if a keyboard button has 
+	// been pressed - you need to complete this
+	public void keyPressed(KeyEvent e) {
+		
+		int keyCode = e.getKeyCode();
+		
+		// changes paddle direction based on what button is pressed
+		
+		if (keyCode == KeyEvent.VK_DOWN && twoPlayer == true) {
+			paddle2Move = PADDLE_SPEED;
+		}
+		if (keyCode == KeyEvent.VK_UP && twoPlayer == true) {
+			paddle2Move = -PADDLE_SPEED;
+		}
+
+		if (e.getKeyChar() == 'w') {
+			paddle1Move=-PADDLE_SPEED;
+		}
+		
+		if (e.getKeyChar() =='s') {
+			paddle1Move=PADDLE_SPEED;
+		}
+			
+		// turn 1-player mode on
+		if (e.getKeyChar() == '1') {
+			onePlayer = true;
+		}
+			
+		// turn 2-player mode on
+		if (e.getKeyChar() == '2') {
+			twoPlayer = true;
+		}
+	}
+
+	// defines what we want to happen if a keyboard button
+	// has been released - you need to complete this
+	public void keyReleased(KeyEvent e) {
+		
+		int keyCode = e.getKeyCode();
+		
+		// stops paddle motion based on which button is released
+		if (keyCode == KeyEvent.VK_UP) {
+			paddle2Move = 0;
+		}
+
+		if (keyCode == KeyEvent.VK_DOWN) {
+			paddle2Move = 0;
+		}
+			
+
+		if(e.getKeyChar() == 'w') {
+			paddle1Move = 0;
+		}
+			
+		
+		if (e.getKeyChar() == 's') {
+			paddle1Move = 0;
+		}
+			
+	}
+	
+	// restarts the game, including scores, ball position, ball colors, and player mode
+	public void restart() {
+		score1 = 0;
+		score2 = 0;
+		ballX = WIDTH/2-DIAM/2;
+		ballY = WINDOW_HEIGHT/2-DIAM/2;
+		ballColorR = INTBALLCOLORR;
+		ballColorG = INTBALLCOLORG;
+		ballColorB = INTBALLCOLORB;
+		collisionCount = 0;
+		gameRunning = true;
+		onePlayer = false;
+		twoPlayer = false;
+		
+	}
+
+	//////////////////////////////////////
+	//////////////////////////////////////
+	
+	// DON'T TOUCH THE BELOW CODE
+	
+	
+	// this method runs the actual game.
+	public void run() {
+
+		// while(true) should rarely be used to avoid infinite loops, but here it is ok because
+		// closing the graphics window will end the program
+		while (true) {
+	
+			// draws the game
+			repaint();
+			
+			// we move the ball, paddle, and check for collisions
+			// every hundredth of a second
+			move_ball();
+			move_paddles();
+			check_collisions();
+			
+			//rests for a hundredth of a second
+			try {
+				Thread.sleep(10);
+			} catch (Exception ex) {}
+		}
+	}
+	
+	// very simple main method to get the game going
+	public static void main(String[] args) {
+		new PongProject();
+	}
+
+	// does complicated stuff to initialize the graphics and key listeners
+	// DO NOT CHANGE THIS CODE UNLESS YOU ARE EXPERIENCED WITH JAVA
+	// GRAPHICS!
+	public PongProject() {
+		JFrame frame = new JFrame();
+		JButton button = new JButton("restart");
+		frame.setSize(WIDTH, HEIGHT);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(this);
+		frame.add(button, BorderLayout.SOUTH);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setVisible(true);
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				restart();
+				PongProject.this.requestFocus();
+			}
+		});
+		this.addKeyListener(this);
+		this.setFocusable(true);
+		
+		run();
+	}
+	
+	// method does nothing
+	public void keyTyped(KeyEvent e) {}
+}
