@@ -1,0 +1,172 @@
+// Jeopardy Board
+// Rohan Patel
+
+
+package IntroToJava;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+public class JeopardyBoard {
+
+	
+// these variables are not final
+// they change when the screen size is adjusted
+	
+private int gridWidth = 800, gridHeight = 600, textHeight = 50;
+	
+	private final int NUMQUESTIONS = 5, NUMCATEGORIES = 6;
+	
+	private int score = 0;
+
+	
+	public void draw(Graphics g) {
+		
+		// draws a blue background 
+		// when gridWidth and gridHeight change, so will the background size
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, gridWidth, gridHeight);
+		
+		// draws vertical lines to separate boxes
+		for (int i = 1; i < NUMCATEGORIES; i++) {
+			g.setColor(Color.PINK);
+			g.drawLine(i*gridWidth/NUMCATEGORIES, 0, i*gridWidth/NUMCATEGORIES, gridHeight);
+		}
+		
+		// draws horizontal lines to separate boxes
+		for (int i = 1; i < NUMQUESTIONS; i++) {
+			g.setColor(Color.PINK);
+			g.drawLine(0, i*gridHeight/NUMQUESTIONS, gridWidth, i*gridHeight/NUMQUESTIONS);
+		}
+		
+		// the following for loops writes the scores for each row
+		// the first row is 100 
+
+		for (int i = 1; i < 2*NUMCATEGORIES; i+=2) {
+			g.drawString("100", i*gridWidth/(2*NUMCATEGORIES), gridHeight/(2*NUMQUESTIONS));
+			g.setColor(Color.PINK);
+		}
+		
+		// the second row is 200 
+		
+		for (int i = 1; i < 2*NUMCATEGORIES; i+=2) {
+			g.drawString("200", i*gridWidth/(2*NUMCATEGORIES), 3*gridHeight/(2*NUMQUESTIONS));
+			g.setColor(Color.PINK);		
+		}
+		
+		// the third row is 300 
+		
+		for (int i = 1; i < 2*NUMCATEGORIES; i+=2) {
+			g.drawString("300", i*gridWidth/(2*NUMCATEGORIES), 5*gridHeight/(2*NUMQUESTIONS));
+			g.setColor(Color.PINK);
+		}
+		
+		// the fourth row is 400 
+		
+		for (int i = 1; i < 2*NUMCATEGORIES; i+=2) {
+			g.drawString("400", i*gridWidth/(2*NUMCATEGORIES), 7*gridHeight/(2*NUMQUESTIONS));
+			g.setColor(Color.PINK);
+		}
+		
+		// the fifth row is 500 
+		
+		for (int i = 1; i < 2*NUMCATEGORIES; i+=2) {
+			g.drawString("500", i*gridWidth/(2*NUMCATEGORIES), 9*gridHeight/(2*NUMQUESTIONS));
+			g.setColor(Color.PINK);
+		}
+		
+		
+	}
+	
+	public void click(int mouseX, int mouseY) {
+		
+		// points are added to the score depending on which row is clicked
+		// For example, if the first row is clicked on, 100 points are added
+		if(0<mouseY && mouseY<gridHeight/NUMQUESTIONS) {
+			score+=100;
+		}
+		// no magic numbers are used, 
+		// just the variables so the area selected changes to the screen size
+		if(gridHeight/NUMQUESTIONS<mouseY && mouseY<2*gridHeight/NUMQUESTIONS) {
+			score+=200;
+		}
+		if(2*gridHeight/NUMQUESTIONS<mouseY && mouseY<3*gridHeight/NUMQUESTIONS) {
+			score+=300;
+		}
+		if(3*gridHeight/NUMQUESTIONS<mouseY && mouseY<4*gridHeight/NUMQUESTIONS) {
+			score+=400;
+		}
+		if(4*gridHeight/NUMQUESTIONS<mouseY && mouseY<gridHeight) {
+			score+=500;
+		}
+		
+	}
+	
+	
+	// DO NOT TOUCH BELOW CODE //
+	
+	public JeopardyBoard() {
+		
+		JFrame window = new JFrame();
+		window.setTitle("Jeopardy!");
+		window.setSize(gridWidth, gridHeight + textHeight);
+		window.setLocationRelativeTo(null);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		
+		JTextArea scoreDisplay = new JTextArea();
+		scoreDisplay.setEditable(false);
+		scoreDisplay.setText("\t\tScore: 0");
+		
+		JPanel canvas = new JPanel() {
+			public void paint(Graphics g) {
+				gridWidth = window.getWidth();
+				gridHeight = window.getHeight() - textHeight;
+				draw(g);
+			}
+		};
+		canvas.setPreferredSize(new Dimension(gridWidth, gridHeight));
+		
+		canvas.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				click(e.getX(), e.getY());
+				scoreDisplay.setText("\t\tScore: " + score);
+				window.getContentPane().repaint();
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
+		
+		container.add(canvas);
+		container.add(scoreDisplay);
+		window.add(container);
+		window.setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new JeopardyBoard();
+	}
+
+
+	
+}
