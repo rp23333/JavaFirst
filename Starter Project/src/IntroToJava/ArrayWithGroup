@@ -1,0 +1,32 @@
+package IntroToJava;
+
+public class ArraysWithGroup {
+	
+	public void maxIndex(int[] x) {
+		int maxI = 0;
+		for(int i = 0; i < x.length; i++) {
+			if (x[i]>x[maxI]) {
+				maxI = i;
+			}
+		}
+		System.out.print(maxI);
+		
+	}
+	
+	public void reverse(int[] arr) {
+		for(int i = 0; i < arr.length; i++) {
+			int temp = arr[i];
+			arr[i] = arr[arr.length - i - 1];
+			arr[arr.length - i - 1] = temp;
+		}
+		System.out.print(arr);
+	}
+	
+	public static void main(String[] args) {
+		ArraysWithGroup runner = new ArraysWithGroup();
+		runner.maxIndex(new int[]{4,5,6,8});
+		runner.reverse(new int[] {5,3});
+	
+	}
+
+}
