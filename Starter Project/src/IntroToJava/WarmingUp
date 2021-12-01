@@ -1,0 +1,109 @@
+package IntroToJava;
+
+public class WarmingUp {
+	
+	public void oneByOne(String[]arr) {
+		for (int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	public void oneToN(int n) {
+		int [] arr = new int[n];
+		for(int i = 0; i<n;i++) {
+			arr[i]=i+1;
+		}
+		for (int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+		}
+		System.out.println();
+	}
+	
+	public void average(int []n) {
+		int sum = 0;
+		for(int i = 0;i<n.length;i++) {
+			sum+=n[i];
+		}
+		System.out.println(sum/n.length);
+		System.out.println();
+
+	}
+	
+	public void dDouble(int []arr) {
+		for(int i = 0; i <arr.length; i++) {
+			arr[i]=arr[i]*2;
+		}
+		for (int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+		}
+		System.out.println();
+	}
+	
+	public void trim(int []x) {
+		int[] arr = new int[x.length-2];
+		int max = x[0];
+		int min = x[0];
+		for(int i = 0; i <x.length; i++) {
+			if(x[i]>max) {
+				max=x[i];
+			}
+			else if(x[i]<min) {
+				min=x[i];
+			}
+		}
+		
+		for (int i=0;i<x.length;i++) {
+			if(x[i]!=max && x[i]!=min) {
+				System.out.print(x[i]);
+			}
+		}
+		System.out.println();
+		
+	}
+	
+	public void fibonacci(int n) {
+		int[] arr = new int[n];
+		arr[0]=0;
+		if (n>1){
+			arr[1]=1;
+			for(int i = 2; i <arr.length; i++) {
+				arr[i]= arr[i-1]+ arr[i-2];
+			}
+		}
+		
+		for (int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+		}
+		System.out.println();
+	}
+	
+
+	
+	public void risingAvg(int []arr) {
+		double[] avg = new double[arr.length];
+		int sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			avg[i] = (double)sum/(i+1);
+		}
+		for (int i=0;i<arr.length;i++) {
+			System.out.print(arr[i]);
+		}
+		System.out.println();
+		
+	}
+
+	
+	public static void main(String[] args) {
+		WarmingUp runner = new WarmingUp();
+		runner.oneByOne(new String[] {"warming","up","with","arrays"});
+		runner.oneToN(14);
+		runner.average(new int[] {2,3,5,98});
+		runner.dDouble(new int[] {21,33,15,89});
+		runner.trim(new int[] {21,33,15,89,55,102,-2});
+		runner.fibonacci(12);
+		runner.risingAvg(new int[] {3,6,13,16});
+	}
+}
