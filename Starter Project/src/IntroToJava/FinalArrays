@@ -1,0 +1,72 @@
+package IntroToJava;
+
+public class FinalArrays {
+	
+	public void indexSum(int []arr) {
+		int sum = 0;
+		for(int i = 0; i <arr.length; i++) {
+			sum+=arr[i]*i;
+		}
+		System.out.println(sum);
+	}
+	
+	public void lowercase(char [] arr) {
+		for(int i = 0; i <arr.length; i++) {
+			if(arr[i]>=97 && arr[i]<=122) {
+				System.out.print(arr[i]);
+			}
+		}
+		System.out.println();
+	}
+	
+	public void adjSum(int[]arr, int x) {
+		boolean sum10 = false;
+		for (int i = 0; i <arr.length-1; i++) {
+			if(arr[i]+arr[i+1]==x) {
+				sum10=true;
+			}
+		}
+		if(sum10) {
+			System.out.println("yes");
+		}
+		else {
+			System.out.println("no");
+		}
+	}
+	
+	public void anagram(int[]arr1,int[]arr2) {
+		boolean boolean2 = true;
+		int count = 0;
+		if(arr1.length!=arr2.length) {
+			boolean2=false;
+		}
+		for (int i = 0; i <arr1.length; i++) {
+			for(int j = 0; j <arr2.length; j++) {
+				if(arr1[i]==arr2[j]) {
+					count++;
+				}
+			}
+			if(count!=1) {
+				boolean2=false;
+			}
+			else {
+				count=0;
+			}
+		}
+		if(boolean2) {
+			System.out.println("yes, anagram");
+		}
+		else {
+			System.out.println("no, not anagram");
+		}
+	}
+
+	public static void main(String[] args) {
+		FinalArrays runner = new FinalArrays();
+		runner.indexSum(new int[] {3,5,67,43,3});
+		runner.lowercase(new char[] {'C','@','c','o','D','d','e'});
+		runner.adjSum(new int[] {5,4,-3,13}, 10);
+		runner.anagram(new int[] {5,4,-3,13}, new int[] {-3,13,5,4});
+	}
+	
+}
