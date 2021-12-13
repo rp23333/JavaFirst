@@ -1,0 +1,325 @@
+package IntroToJava;
+
+import java.awt.Color;
+
+// WHACKAMOLE PROJECT BY ROHAN PATEL
+// Filler code for Whack a Mole by Mr. Friedman
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+
+import java.util.Random;
+
+
+public class WhackAMole {
+
+// my extra feature is a flying eagle that appears twice throughout the game
+// if you do not click on the eagle before clicking elsewhere on the screen, you automatically lose the game
+
+	// size of the display area
+    private int windowWidth = 800, windowHeight = 600, textHeight = 35; 
+    
+    private Image moleImg, bgImg, dirtImg, eagleImg;
+
+    // constants for the number of moles, number of moles appearing at a time, and the 
+    // time gap between new moles popping up (in milliseconds)
+    private final int NUMMOLES = 6, TIMESTEP = 5000, MOLESIZE = 100, DIRTSIZE = 100, EAGLESIZE = 200;
+    
+    private int[] x =  new int[NUMMOLES], y =  new int[NUMMOLES];			// locations of the moles
+    private boolean[] showing = new boolean[NUMMOLES];	// keeps track of which moles are popped up
+    
+    private int score = 0, eagleX, eagleY;
+    
+    private boolean eagleShowing = false;
+    
+    //private boolean eagleShowing = false;
+    
+
+    public void setup() {
+    	
+    	// loads my 4 images 
+		moleImg = Toolkit.getDefaultToolkit().getImage("mole.png");
+		bgImg = Toolkit.getDefaultToolkit().getImage("background.jpg");
+		dirtImg = Toolkit.getDefaultToolkit().getImage("dirt.png");
+		eagleImg = Toolkit.getDefaultToolkit().getImage("eagle.png");
+		
+		 // runs a for loop and assigns random x and y values for each mole 
+		 for(int i = 0; i < NUMMOLES; i++) {
+			 
+			 	// random numbers are assigned for the x and y values of moles
+			 
+			 	// the random numbers have maximum and minimum values
+			 	// so the moles do not appear off the screen or in the air
+			 
+	        	x[i] = (int)(Math.random() * windowWidth-MOLESIZE);
+	        	y[i] = (int)(Math.random() * windowHeight-MOLESIZE) + 3*windowHeight/4;
+	        }
+		 
+		 // in this loop, a random number is generated
+		 // if the random number is 1, the mole does not appear
+		 for(int i = 0; i < NUMMOLES; i++) {
+				int rand = (int)(Math.random() * 3)+1;
+				if (rand==1) {
+					showing[i]=false;
+				}
+				else {
+		        	showing[i] = true;
+				}
+
+	        }
+		
+		// your code here
+    }
+
+
+    
+    public void draw(Graphics g) {
+    	
+    	// draws the background image at 0,0 with a size that will cover 
+    	// the entire display window
+        g.drawImage(bgImg, 0, 0, windowWidth, windowHeight, null);
+        
+        // the program only runs when the score is between 0 and 15
+        if(score<15 && score>=0) {
+        	for(int i = 0; i < NUMMOLES; i++) {
+        		
+            	// the dirt mound is drawn at the x and y values set in the arrays
+            	g.drawImage(dirtImg, x[i], y[i]+ MOLESIZE/3, DIRTSIZE, DIRTSIZE/2, null);
+            	
+            	// if the boolean showing is true, the mole appears
+            	if(showing[i]) {
+            		g.drawImage(moleImg, x[i], y[i], MOLESIZE, MOLESIZE, null);
+            	}
+            	
+            }
+             // when the score becomes 5, the special feature comes up
+        	// an eagle is drawn at a random position in the sky
+        	if(score==5) {
+            	eagleX = (int)(Math.random() * windowWidth-MOLESIZE);
+            	eagleY= (int)(Math.random() * windowHeight/3);
+            	g.drawImage(eagleImg, eagleX, eagleY, EAGLESIZE, EAGLESIZE, null);
+            	eagleShowing = true;
+            }
+        	// an eagle appears when the score becomes 10 as well
+        	if(score==10) {
+            	eagleX = (int)(Math.random() * windowWidth-MOLESIZE);
+            	eagleY= (int)(Math.random() * windowHeight/3);
+            	g.drawImage(eagleImg, eagleX, eagleY, EAGLESIZE, EAGLESIZE, null);
+            	eagleShowing = true;
+            }
+            
+        }
+        
+        // you win the game when you reach 15 points!
+        if(score==15) {
+        	Font f = new Font("Times New Roman", Font.BOLD, 200);
+        	g.setFont(f);
+			g.setColor(Color.white);
+        	g.drawString("You Win!", windowWidth/4, 3*windowHeight/4);
+        }
+        // you lose the game when you get below 0 points!
+        else if(score<0) {
+        	Font f = new Font("Times New Roman", Font.BOLD, 200);
+        	g.setFont(f);
+			g.setColor(Color.red);
+        	g.drawString("You Lose!", windowWidth/4, 3*windowHeight/4);
+        }
+        
+        
+    }
+
+
+    // what you want to happen when the mouse is clicked
+    public void click(int mouseX, int mouseY) {
+    	
+    	for(int i = 0; i < x.length; i++) {
+    		// if mouse presses on the mole, the score increases and the mole disappears
+    		if(mouseX>x[i] && mouseX<x[i]+ MOLESIZE && mouseY>y[i] && mouseY<y[i]+ MOLESIZE && showing[i]==true) {
+    			showing[i] = false;
+    			score++; 
+    		}
+    		// however, if you click on the empty dirt mound that does not have a mole, you lose a point
+    		else if(mouseX>x[i] && mouseX<x[i]+ MOLESIZE && mouseY>y[i] && mouseY<y[i]+ MOLESIZE && showing[i]==false) {
+    			score--; 
+    		}
+    	}
+    	
+    	//when the eagle is on the screen, you must click on it before you click elsewhere
+    	if(eagleShowing) {
+    		if(mouseX>eagleX && mouseX<eagleX+ EAGLESIZE && mouseY>eagleY && mouseY<eagleY+ EAGLESIZE && eagleShowing) {
+    			// the score increases by 3 and the eagle dissapears when pressed upon
+    			score+=3;
+        		eagleShowing = false;
+    		}
+    		// your score immediately becomes negative and you lose the game if you miss the eagle
+    		else {
+    			score = -1;
+    		}
+    	}
+
+    }
+    
+    // what you want to happen when the time for the current round ends
+    public void timeAdvance() {
+    	if(score<15 && score>=0) {
+    		for(int i = 0; i < NUMMOLES; i++) {
+    			// new random x and y vales at made 
+            	x[i] = (int)(Math.random() * windowWidth-MOLESIZE) + MOLESIZE;
+            	y[i] = (int)(Math.random() * windowHeight-MOLESIZE) + 3*windowHeight/4;
+            }
+    		// some dirt mounds will have moles, others will not
+        	for(int i = 0; i < NUMMOLES; i++) {
+    			int rand = (int)(Math.random() * 3)+1;
+    			if (rand==1) {
+    				showing[i]=false;
+    			}
+    			else {
+    	        	showing[i] = true;
+    			}
+
+            }
+        	
+
+    	}
+    	
+    }
+    
+    // reset the game
+    public void reset() {
+
+    	// the game is reset with new random positions for the moles
+    	for(int i = 0; i < NUMMOLES; i++) {
+        	
+        	x[i] = (int)(Math.random() * windowWidth-MOLESIZE) + MOLESIZE;
+        	y[i] = (int)(Math.random() * windowHeight-MOLESIZE) + 3*windowHeight/4;
+        }
+    	// just like in the setup, if the random number 1 is created by the random number generator
+    	// then the mole will not appear
+    	for(int i = 0; i < NUMMOLES; i++) {
+			int rand = (int)(Math.random() * 3)+1;
+			if (rand==1) {
+				showing[i]=false;
+			}
+			else {
+	        	showing[i] = true;
+			}
+
+        }
+    	// the score becomes 0 
+    	score = 0;
+    }
+
+
+    // DO NOT TOUCH BELOW CODE //
+
+    public WhackAMole() {
+    	
+    	setup();
+
+        JFrame window = new JFrame();
+        window.setTitle("Whack A Mole");
+        window.setSize(windowWidth, windowHeight + textHeight);
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+        JTextArea scoreDisplay = new JTextArea();
+        scoreDisplay.setEditable(false);
+        scoreDisplay.setText("\t\tScore: 0");
+        
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				reset();
+			}
+        });
+        
+        JPanel topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(windowWidth, textHeight));
+        topPanel.add(resetButton);
+        scoreDisplay.setBackground(topPanel.getBackground());
+        
+        topPanel.add(scoreDisplay);
+
+        
+
+        JPanel canvas = new JPanel() {
+            public void paint(Graphics g) {
+                draw(g);
+            }
+        };
+        canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+
+        canvas.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                click(e.getX(), e.getY());
+                scoreDisplay.setText("\t\tScore: " + score);
+                window.getContentPane().repaint();
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+        
+        window.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                windowWidth = window.getWidth();
+                windowHeight = window.getHeight() - textHeight;
+                topPanel.setPreferredSize(new Dimension(windowWidth, textHeight));
+                canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+            }
+        });
+
+        container.add(topPanel);
+        container.add(canvas);
+        window.add(container);
+        window.setVisible(true);
+        canvas.revalidate();
+        window.getContentPane().repaint();
+        
+        new Timer(TIMESTEP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            	timeAdvance();
+            	window.getContentPane().repaint();
+            }
+        }).start();
+    }
+    
+
+    public static void main(String[] args) {
+        new WhackAMole();
+    }
+
+}
