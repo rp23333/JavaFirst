@@ -1,0 +1,64 @@
+package IntroToJava;
+
+public class WarminBackUp {
+	
+	public void alphabeticalOrder(String word) {
+		boolean order = true;
+		for(int i = 1; i<word.length();i++) {
+			if(word.charAt(i)<=word.charAt(i-1)) {
+				order = false;
+			}
+		}
+		if(order) {
+			System.out.println("It's in alphabetical order");
+		}
+		else {
+			System.out.println("It's not in alphabetical order");
+		}
+	}
+	
+	public void bestGrade(String[] names, char [] grades) {
+		int maxIndex = 0;
+		for(int i = 0; i<names.length; i++) {
+			if(grades[maxIndex]>=grades[i]) {
+				maxIndex=i;
+			}
+		}
+		System.out.print(names[maxIndex]+ " has a "+ grades[maxIndex]);
+	}
+	
+	public void oddPerfectSquare(int n) {
+		System.out.println();
+		for(int i =1; i<n*2;i+=2) {
+			System.out.print(i*i+", ");
+		}
+	}
+	
+	public void wierdString(String word) {
+		System.out.println();
+		String newWord = "";
+		for(int i = 0; i < word.length()-2;i+=3) {
+			if(i%2==0) {
+				newWord += word.substring(i,i+3);
+			}
+		}
+		if(word.length()%6<3) {
+			newWord += word.substring(word.length()- word.length()%6);
+		}
+		System.out.println(newWord);
+		
+	}
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		WarminBackUp runner = new WarminBackUp();
+		runner.alphabeticalOrder("eating");
+		runner.bestGrade(new String [] {"John", "Jack", "Bob", "Jill"}, new char [] {'A','B','C','F'});
+		runner.oddPerfectSquare(6);
+		runner.wierdString("warmingBackUp");
+	}
+}
