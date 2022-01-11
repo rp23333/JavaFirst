@@ -1,0 +1,34 @@
+package IntroToJava;
+
+public class Intro2DArray {
+	
+	// A.6, B.1 C. error D.3 E.k F.error G.105 H.k I.{7,6}
+	
+	public void n2sub1(int n){
+		int[][]arr = new int [2][(n*n-1)/2];
+		for(int i = 0; i < 1; i++) {
+			for(int j = 0; j < 3 ; j++) {
+				arr[i][j]=j*(i+1);
+			}
+		}
+
+	}
+	
+	public void columnAndRow(int arr[][]) {
+		System.out.print(arr.length + " columns and " + arr[0].length + " rows");
+	}
+	
+	public void triangleArray(int arr[]) {
+		int[][]arr2 = {{arr[0]},{arr[1], arr[2]},{arr[3],arr[4],arr[5]}};
+	}
+	
+	public static void main(String[] args) {
+		Intro2DArray runner = new Intro2DArray();
+		runner.n2sub1(3);
+		runner.columnAndRow(new int[][] {{1,3,4,5},{4,5,5,6}});
+		runner.triangleArray(new int[]{1,3,4,5,7,2});
+	}
+	
+	
+	
+}
