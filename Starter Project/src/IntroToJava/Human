@@ -1,0 +1,89 @@
+package IntroToJava;
+
+import java.util.Scanner;
+
+public class Human {
+
+	private int age;
+	private int height;
+	private String name;
+	String vote;
+	String fortune;
+	
+	public void HumanFunction(int age, int height, String humanName) {
+		
+		this.age = age;
+		this.height = height;
+		name = humanName;
+
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int newAge) {
+		age = newAge;
+	}
+	
+	public void inputAge() {
+		Scanner inScan = new Scanner(System.in);
+		System.out.println("What age is your human?");
+		int newerAge = inScan.nextInt();
+		age = newerAge;
+	}
+	
+	public void getOlder(int addAge) {
+		age = age + addAge;
+	}
+	
+	
+	public String toString() {
+		return "I am" + name + ", I am " + age + " years old and my height is " + height + " inches.";
+	}
+	
+	public void eat(int calories) {
+		height += calories/1000;
+	}
+	
+	public void displayInfo() {
+		System.out.println("My human name is " + name + ". I am " + age + " years old with " + height + " inches of height. ");
+		
+	}
+	
+	public void canVote() {
+		Scanner inScan = new Scanner(System.in);
+		System.out.println("What year is it?");
+		int year = inScan.nextInt();
+		
+		
+		if(year%4==0 && age>18) {
+			fortune = "Fortunetly";
+			vote = "can";
+		}
+		else {
+			fortune = "Unfortunetly";
+			vote = "can't";
+		}
+		System.out.print(fortune + ", I " + vote + " vote this year!");
+		
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		Human runner = new Human();
+		Human tester = new Human();
+		runner.HumanFunction(18, 73, "Josh");
+		runner.setAge(19);
+		tester.inputAge();
+		runner.getOlder(1);
+		runner.eat(3000);
+		runner.displayInfo();
+		tester.canVote();
+		
+		
+		
+	}
+}
