@@ -1,0 +1,48 @@
+package IntroToJava;
+
+public class BankAccount21 {
+	
+	private String name;
+	private int money;
+	private double interest;
+	
+
+	public BankAccount21(String n, int m, double i) {
+		this.name = n;
+		this.money = m;
+		this.interest = i;
+	}
+	
+	public BankAccount21(String name, double interest) {
+		this.name = name;
+		this.interest = interest;
+		money = 0;
+	}
+	
+	public void deposit(int n) {
+		money += n;
+	}
+	
+	public void withdraw(int n) {
+		money -= n;
+	}
+	
+	public void addInterest() {
+		money += interest * money;
+	}
+	
+	public String toString() {
+		return "Money in "+ name+"'s Account: " + money;
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		BankAccount21 One = new BankAccount21("Jack", 300, 0.05);
+		BankAccount21 Two = new BankAccount21("Billy", 900, 0.075);
+		System.out.println(One);
+		System.out.println(Two);
+	}
+		
+		
+}
