@@ -10,11 +10,11 @@ public class Human {
 	String vote;
 	String fortune;
 	
-	public void HumanFunction(int age, int height, String humanName) {
+	public Human(int a, int h, String humanName) {
 		
-		this.age = age;
-		this.height = height;
-		name = humanName;
+		this.age = a;
+		this.height = h;
+		this.name = humanName;
 
 	}
 	
@@ -39,7 +39,7 @@ public class Human {
 	
 	
 	public String toString() {
-		return "I am" + name + ", I am " + age + " years old and my height is " + height + " inches.";
+		return "I am " + name + ", I am " + age + " years old and my height is " + height + " inches.";
 	}
 	
 	public void eat(int calories) {
@@ -73,15 +73,9 @@ public class Human {
 	
 	
 	public static void main(String[] args) {
-		Human runner = new Human();
-		Human tester = new Human();
-		runner.HumanFunction(18, 73, "Josh");
-		runner.setAge(19);
-		tester.inputAge();
-		runner.getOlder(1);
-		runner.eat(3000);
-		runner.displayInfo();
-		tester.canVote();
+		
+		Human Rohan = new Human(20, 100, "Rohan");
+		System.out.println(Rohan);
 		
 		
 		
