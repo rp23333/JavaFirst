@@ -1,0 +1,97 @@
+package IntroToJava;
+
+public class Wrestler {
+	
+	private int weight, wins;
+	private String name, outfitColor;
+	
+	public Wrestler(int w, int wi, String n, String c) {
+		this.weight = w;
+		this.wins = wi;
+		this.name = n;
+		this.outfitColor = c;
+	}
+	
+	public void intimidate() {
+		System.out.println("You're dead meat!");
+	}
+	
+	public String toString() {
+		return "I am " + name + ". I am " + weight + " lbs with " + wins + " wins. My outift is " + outfitColor +"."; 
+	}
+	
+	
+	
+	public boolean fight(Wrestler oppenent) {
+		if(weight > oppenent.weight) {
+			wins++;
+			return true;
+		}
+		else if(oppenent.weight> weight) {
+			oppenent.wins++;
+			return false;
+		}
+		else {
+			if(name.compareToIgnoreCase(oppenent.name)<0) {
+				wins++;
+				return true;
+			}
+			else {
+				oppenent.wins++;
+				return false;
+			}
+		}
+	}
+	
+	public void lift(int minLift, int weight) {
+		weight+=0.1*minLift;
+	}
+	
+	public boolean tagTeam(Wrestler[]allies, Wrestler[]opponents) {
+		
+		double allyWeight = 0, enemyWeight =0;
+		
+		for (Wrestler w: allies) {
+			w.outfitColor = this.outfitColor;
+			
+		}
+		
+		for(int i = 0; i < opponents.length; i++) {
+			opponents[i].outfitColor = opponents[0].outfitColor; 
+			enemyWeight += opponents[i].weight;
+		}
+		
+		if(allyWeight >= enemyWeight) {
+			wins++;
+			for (Wrestler w: allies) {
+				w.wins ++;
+			}
+			return true;
+		}
+		
+		else {
+			for (Wrestler w: opponents) {
+				w.wins ++;
+			}
+			return false;
+		}
+	}
+
+	public static void main(String[] args) {
+		Wrestler Jack = new Wrestler(175, 0, "Jack", "green");
+		Wrestler Billy = new Wrestler(165, 0, "Billy", "blue");
+		Wrestler Mike = new Wrestler(205, 0, "Mike", "pink");
+		Wrestler BigBoy = new Wrestler(475, 0, "BigBoy", "black");
+		
+		System.out.println(Jack);
+		System.out.println(Billy);
+		System.out.println(Jack.fight(Billy));
+		System.out.println(Jack);
+		System.out.println(Billy);
+		System.out.println(Mike.fight(BigBoy));
+		
+		//Wrester[] allies = {Jack, Mike};
+		//Wrester[] opponents = {Billy,BigBoy};
+		//System.out.println(Jack.tagTeam(allies, opponents));
+	}
+}
