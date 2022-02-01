@@ -1,0 +1,36 @@
+package IntroToJava;
+
+public class Car {
+	
+	private String carName;
+	private int mileage, year, worth;
+	
+	
+	
+	public Car(String carName, int year, int mileage, int worth) {
+		
+		this.carName = carName;
+		this.year = year;
+		this.mileage = mileage;
+		this.worth = worth;
+		
+		
+	}
+	
+	public void drive(int distance) {	
+		mileage+=distance;
+	}
+	
+	public double worth() {
+		return 20000 - 1000*year - 2*mileage;
+		
+	}
+	
+	public int getMileage() {
+		return mileage;
+	}
+	
+	
+	
+
+}
