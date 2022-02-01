@@ -1,0 +1,83 @@
+package IntroToJava;
+
+import java.util.Scanner;
+
+public class Deck {
+	
+	private Card[] DeckArray; 
+	
+	public Deck() {
+		
+		String [] suit = {"hearts", "clubs", "spades", "diamonds"};
+		this.DeckArray = new Card[52];
+		int countA = 0;
+		
+		for (int i = 0; i < 4; i++) {
+			for (int j = 1; j <= 13; j++) {
+				DeckArray[countA] = new Card(suit[i], j);
+				countA++;
+			}
+		}
+	}
+	
+	public String toString() {
+		
+		String count = "";
+		
+		for (int i = 0; i < DeckArray.length; i++) {
+			count += DeckArray[i] + " ";
+		}
+		
+		return(count);
+	}
+	
+	public String getRandom() {
+		int randNum = (int) ((Math.random()*52)+0);
+		return DeckArray[randNum] + "";
+	}
+	
+	public Card[] getFirstN(int n) {
+		
+		Card[] count = new Card[n];
+		
+		for (int i = 0; i < n; i++) {
+			count[i] = DeckArray[i];
+		}
+		
+		return count;
+	}
+	
+	public void shuffle() {
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < DeckArray.length; j++) {
+				int random = (int)(Math.random()*DeckArray.length);
+				Card temp = DeckArray[random];
+				DeckArray[random] = DeckArray[i];
+				DeckArray[i] = temp;
+			}
+		}
+	}
+	
+	public void sort() {
+		
+		String [] suit = {"club", "spade", "heart", "diamond"};
+		this.DeckArray = new Card[52];
+		int count1 = 0;
+		
+		for (int j = 1; j < 14; j++) {
+			for (int i = 0; i < 4; i++) {
+				DeckArray[count1] = new Card(suit[i], j);
+				count1++;
+			}
+		}
+	}
+	
+	public void display() {
+		System.out.print(DeckArray);
+	}
+	
+	
+	
+
+}
