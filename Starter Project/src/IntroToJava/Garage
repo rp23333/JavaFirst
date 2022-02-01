@@ -1,0 +1,73 @@
+package IntroToJava;
+
+public class Garage {
+	
+	private String garageName;
+	
+	private int totWorth;
+	
+	private Car[] carList;
+	
+	public Garage(int n) {
+		
+		carList = new Car[n];
+		
+	}
+	
+	public void addCar(String carName, int i, int year, int mileage) {
+		
+		if(i >= carList.length || i < 0) {
+			System.out.println("invalid index");
+		}
+		
+		else {
+			carList[i] = new Car(carName,i, year, mileage);
+		}
+	}
+	
+	public double totalWorth() {
+		totWorth = 0;
+		for (int i = 0; i < carList.length; i++) {
+			if (carList[i] == null) {
+				continue;
+			}
+			else {
+				totWorth += carList[i].worth();
+			}
+			
+			
+		}
+		return totWorth;
+	}
+	
+	public void averageMileage(int mileage, int totWorth) {
+		System.out.println(totWorth/carList.length);
+	}
+	
+	public void drive(int i, int n) {
+		carList[i].drive(n);
+	}
+	
+	
+	public static void main(String[] args) {
+		Car Honda = new Car ("Honda",0, 3, 69);
+		Car Jeep = new Car ("Jeep",1, 10, 110);
+		
+		Garage carList = new Garage(2);
+		
+		carList.addCar("Honda",0, 3, 69);
+		carList.addCar("Jeep",0, 3, 69);
+		
+		
+		System.out.println(Honda.worth());
+		Honda.drive(1000);
+		System.out.println(Honda.worth());
+		
+		System.out.println(carList.totalWorth());
+		
+	}
+	
+	
+	
+
+}
