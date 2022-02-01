@@ -1,0 +1,26 @@
+package IntroToJava;
+
+public class Card {
+
+	
+	private String suit;
+	private int num;
+	
+	public Card(String s, int n) {
+		this.suit = s;
+		this.num = n;
+	}
+	
+	public String toString() {
+		return  num + " of " + suit;
+	}
+	
+	public String getSuit() {
+		return suit;
+	}
+	
+	public int getNum() {
+		return num;
+	}
+	
+}
