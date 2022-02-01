@@ -310,7 +310,7 @@ public class PhotoshopProject extends Component {
 
 			// runs the manipulations determined by the user
 			System.out.println("Enter the manipulations you would like to run on the image.\nYour "
-					+ "choices are: brighten, flip, negate, blur, edge, crop, colorize, or simplify.\nEnter each "
+					+ "choices are: brighten, flip, negate, blur, edge, colorize, or simplify.\nEnter each "
 					+ "manipulation you'd like to run, then type in 'done'.");
 			Scanner in = new Scanner(System.in);
 			String action = in.next().toLowerCase();
@@ -383,3 +383,4 @@ public class PhotoshopProject extends Component {
 		run();
  }
 }
+
