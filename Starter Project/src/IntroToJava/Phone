@@ -1,0 +1,36 @@
+package IntroToJava;
+
+public class Phone {
+
+	private int year;
+	protected boolean warranty;
+	private String phoneCase;
+	
+	
+	public Phone(int y, boolean w, String pC){
+		year = y;
+		warranty = w;
+		phoneCase = pC;
+	}
+	
+	public String display() {
+		return year + ", " + warranty + ", " + phoneCase + ", ";
+	}
+	
+	public void setYear(int y) {
+		year = y;
+	}
+	
+	public void setPhoneCase(String pC) {
+		this.phoneCase = pC;
+	}
+	
+	public String getPhoneCase() {
+		return phoneCase;
+	}
+	
+	public int getYear() {
+		return year;
+	}
+	
+}
