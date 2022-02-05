@@ -1,0 +1,34 @@
+package IntroToJava;
+
+public class iPhoneModel extends iPhone{
+
+	private String model;
+	
+	public iPhoneModel(String model,String b, int y, boolean w, String pC) {
+		super(b, y, w, pC);
+		this.model = model;
+	}
+	
+	public void changeWarranty(int modelYear) {
+		// warranty expires after 5 years
+		if((getYear()-modelYear)>5) {
+			warranty = false;
+		}
+		else {
+			warranty = true;
+		}
+	}
+	
+	public String display() {
+		return super.display() + model;
+	}
+	
+	public static void main(String[] args) {
+		iPhoneModel ElevenPro = new iPhoneModel("iPhone 11 Pro", "iPhone", 2022, true, "Plastic");
+		ElevenPro.changeWarranty(2019);
+		System.out.println(ElevenPro.getWarranty());
+		ElevenPro.changePhoneCase(9);
+		System.out.println(ElevenPro.getPhoneCase());
+		System.out.println(ElevenPro.display());
+	}
+}
