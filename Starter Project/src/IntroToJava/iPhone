@@ -1,0 +1,44 @@
+package IntroToJava;
+
+public class iPhone extends Phone{
+	
+	private String brand;
+	
+	public iPhone(String b, int y, boolean w, String pC) {
+		super(y, w, pC);
+		brand = b;
+		
+	}
+	
+	public void changePhoneCase(int yearsWithCase) {
+		// phone case becomes broken after 5 years
+		if(yearsWithCase>=5) {
+			setPhoneCase("Broken "+getPhoneCase());
+		}
+	}
+	
+	public void setWarranty(boolean warranty) {
+		this.warranty = warranty;
+	}
+	
+	public boolean getWarranty() {
+		return warranty;
+	}
+	
+	
+	
+	public String phoneColor() {
+		String color;
+		if(getYear()%2==0) {
+			color = "black";
+		}
+		if(getYear()%3==0) {
+			color = "red";
+		}
+		else {
+			color = "blue";
+		}
+		return color;
+	}
+
+}
