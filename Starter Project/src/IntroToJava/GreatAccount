@@ -1,0 +1,55 @@
+package IntroToJava;
+
+public class GreatAccount extends BankAccount21{
+	
+	int numWithdrawals = 0;
+	int numMonths = 1;
+	
+	public GreatAccount(String name, int balance) {
+		super(name, balance);
+	}
+	
+	public GreatAccount(String name, int balance, double interest) {
+		super(name, balance);
+	}
+	
+	public int withdraw(int money) {
+		if (numWithdrawals < 3) {
+			super.withdraw(money);
+			numWithdrawals++;
+		}
+		return getBalance();
+	}
+	
+	public void nextMonth() {
+		if (numWithdrawals == 0 && numMonths == 12) {
+			deposit(getBalance());
+		}
+		numMonths++;
+		numWithdrawals = 0;
+		
+	}
+	
+	public String toString() {
+		return super.toString() + " It is month number " + numMonths + " and your number of withdrawals is " + numWithdrawals + "!";
+	}
+	
+	public static void main(String[] args) {
+		GreatAccount Jack = new GreatAccount("Jack", 100, 0.05);
+		GreatAccount Billy = new GreatAccount("Billy", 1000, 0.075);
+		System.out.println(Jack);
+		System.out.println(Billy);
+		System.out.println();
+		Jack.withdraw(10);
+		Billy.withdraw(100);
+		System.out.println(Jack);
+		System.out.println(Billy);
+		System.out.println();
+		Jack.nextMonth();
+		Billy.nextMonth();
+		System.out.println(Jack);
+		System.out.println(Billy);
+	}
+
+
+}
