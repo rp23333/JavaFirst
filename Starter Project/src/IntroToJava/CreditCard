@@ -1,0 +1,48 @@
+package IntroToJava;
+
+public class CreditCard extends InterestAccount{
+
+	public CreditCard(String name, int balance, double interest) {
+		super(name, balance, interest);
+	}
+	
+	public void cardInterest() {
+		addInterest();
+		withdraw(10); 
+	}
+	
+	public int cardWithdraw(int money) {
+		if (getBalance() < 100) {
+			
+		}
+		else {
+			super.withdraw(money);
+		}
+		return getBalance();
+	}
+	
+	public double addCardInterest() {
+		deposit(getBalance()*getInterest());
+		return getBalance();
+	}
+	
+	public String toString() {
+		return super.toString() + " Withdraw Successful!";
+	}
+	
+	public static void main(String[] args) {
+		CreditCard Jack = new CreditCard("Jack", 100, 0.05);
+		CreditCard Billy = new CreditCard("Billy", 1000, 0.075);
+		System.out.println(Jack);
+		System.out.println(Billy);
+		System.out.println();
+		Jack.cardInterest();
+		Billy.cardInterest();
+		Jack.cardWithdraw(10);
+		Billy.cardWithdraw(100);
+		Jack.addCardInterest();
+		Billy.addCardInterest();
+		System.out.println(Jack);
+		System.out.println(Billy);
+	}
+}
