@@ -1,0 +1,28 @@
+package IntroToJava;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class ColorBall extends BouncyBall {
+	
+	public ColorBall(int startX, int startY, int startRadius, int startXSpeed, int startYApeed, Color startColor) {
+		super(startX, startY, startRadius, startXSpeed, startYApeed, startColor);
+	}
+	
+	public void draw(Graphics g) {
+		super.draw(g);
+		
+		// the color changes every few seconds as the ball moves across the width of the screen
+		
+		if(0<super.getX() && super.getX()<WIDTH/3) {
+			setColor(Color.RED);
+		}
+		if(WIDTH/3<super.getX() && super.getX()<2*WIDTH/3) {
+			setColor(Color.CYAN);
+		}
+		if(2*WIDTH/3<super.getX() && super.getX()<WIDTH) {
+			setColor(Color.GREEN);
+		}
+	}
+
+}
