@@ -1,0 +1,21 @@
+package IntroToJava;
+
+import java.awt.Color;
+
+public class ShrinkingBall extends BouncyBall{
+
+	public ShrinkingBall(int startX, int startY, int startRadius, int startXSpeed, int startYApeed, Color startColor) {
+		super(startX, startY, startRadius, startXSpeed, startYApeed, startColor);
+	}
+	
+	public void move() {
+		super.move();
+		if(super.getRad()>10) {
+			setRad(super.getRad()-0.1);
+		}
+	}
+	
+	
+	
+
+}
