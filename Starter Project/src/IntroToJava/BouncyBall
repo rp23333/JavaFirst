@@ -1,0 +1,23 @@
+package IntroToJava;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class BouncyBall extends Ball{
+	
+	public BouncyBall(int startX, int startY, int startRadius, int startXSpeed, int startYApeed, Color startColor) {
+		super(startX, startY, startRadius, startXSpeed, startYApeed, startColor);
+	}
+	
+	public void move() {
+		super.move();
+		if(super.getX()>=WIDTH - super.getRad() || super.getX()<=0) {
+			setXSpeed(getXSpeed()*(-1));
+		}
+		if(super.getY()>=HEIGHT - super.getRad() || super.getY()<=0) {
+			setYSpeed(getYSpeed()*(-1));
+		}
+	}
+
+	
+}
