@@ -1,0 +1,29 @@
+package IntroToJava;
+
+public class CoolBot extends ChatBot{
+	
+	public void sayHi() {
+		System.out.println("Sup, bro. How's it goin?");
+	}
+	
+	public void sayBye() {
+		System.out.println("K, see u l8r!");
+	}
+	
+	public void startConversation() {
+		System.out.println("Wanna converse?");
+	}
+	
+	public void askFirstQuestion() {
+		System.out.println("Nice. On a yearly basis, how many lbs of chicken do u consume?");
+	}
+	
+	public void askSecondQuestion() {
+		System.out.println("Damn, gotta get those numbers up. Anyway, what's your fav #?");
+	}
+	
+	public void askThirdQuestion() {
+		System.out.println("Rad. Do u prefer apple juice or orange juice?");
+	}
+
+}
