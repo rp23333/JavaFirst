@@ -1,0 +1,31 @@
+package IntroToJava;
+
+public class EnthusiasticBot extends ChatBot{
+	
+	public void sayHi() {
+		System.out.println("Wow! How are you today!");
+	}
+	
+	public void sayBye() {
+		System.out.println("My sorry but I've got to go! BYE!");
+	}
+	
+	public void startConversation() {
+		System.out.println("Let's begin a conversation!");
+	}
+	
+	public void askFirstQuestion() {
+		System.out.println("Ok! Is water wet?");
+	}
+	
+	public void askSecondQuestion() {
+		System.out.println("Nice! Are crocs fashionable?");
+	}
+	
+	public void askThirdQuestion() {
+		System.out.println("Finally, how do you think we, as a global community, can prevent war and ethnic, tribal and religious violence which directly leads to refugees around the world."
+				+ "This sort of impact results in increased poverty, displacemnet, food insecurity, which disrupts the harmonious economic balance within countries. What politcal and "
+				+ "economic actions can be taken by governments around the world to support refugees and prevent worldwide poverty?");
+	}
+
+}
