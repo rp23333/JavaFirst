@@ -1,0 +1,29 @@
+package IntroToJava;
+
+public class MadBot extends ChatBot{
+
+	public void sayHi() {
+		System.out.println("Who are you?!");
+	}
+	
+	public void sayBye() {
+		System.out.println("I'm going now. Terrible conversation!");
+	}
+	
+	public void startConversation() {
+		System.out.println("Just leave me alone!");
+	}
+	
+	public void askFirstQuestion() {
+		System.out.println("Why do you suck so much?");
+	}
+	
+	public void askSecondQuestion() {
+		System.out.println("Ha! I want punch you. How do you feel about that?");
+	}
+	
+	public void askThirdQuestion() {
+		System.out.println("What?! Did your parents drop you when you were a baby?");
+	}
+	
+}
