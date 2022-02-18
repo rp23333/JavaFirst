@@ -1,0 +1,24 @@
+package IntroToJava.ShapeClass;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Triangle extends Shape{
+	
+	private int triangleSideX;
+	private int triangleSideY;
+
+	public Triangle(int length, int length2) {
+		super(100, 100);
+		this.triangleSideY = length;
+		this.triangleSideX = length2;
+	}
+	
+	public void draw(Graphics g) {
+		g.setColor(Color.CYAN);
+		g.drawLine(getX(), getY(), getX()+triangleSideX, getY());
+		g.drawLine(getX(), getY(), getX()+(triangleSideX)/2, getY()+(triangleSideY)/5);
+		g.drawLine(getX()+triangleSideX, getY(), getX()+(triangleSideX)/2, getY()+(triangleSideY)/5);
+	}
+
+}
