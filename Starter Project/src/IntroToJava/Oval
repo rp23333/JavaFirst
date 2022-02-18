@@ -1,0 +1,22 @@
+package IntroToJava.ShapeClass;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Oval extends Rect{
+	
+	private int ovalWidth;
+	private int ovalHeight;
+	
+	public Oval (int OvalWidth, int OvalHeight) {
+		super(50, 200);
+		this.ovalWidth = OvalWidth;
+		this.ovalHeight = OvalHeight;
+	}
+	
+	public void draw(Graphics g) {
+		g.setColor(Color.RED);
+		g.drawOval(getX(), getY(), ovalWidth, ovalHeight);
+	}
+	
+}
