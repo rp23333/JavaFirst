@@ -1,0 +1,75 @@
+package lists;
+
+import java.util.ArrayList;
+
+public class IntroToLists {
+	
+	public void removeSecond(ArrayList<Character> list) {
+		ArrayList<Character> newL = new ArrayList<Character>();
+		for(int i = 0; i<list.size(); i+=2) {
+			if ((double)i%2 == 0 || (double)i%2 == 1) {
+				newL.add(list.get(i));
+			}
+		}
+		System.out.print(newL);
+		System.out.println();
+	}
+	
+	public void reverse(ArrayList<String> myList2) {
+		ArrayList<String> newList = new ArrayList<String>();
+		for(int i = myList2.size()-1; i>=0;i--) {
+			newList.add(myList2.get(i));
+		}
+		System.out.print(newList);
+		System.out.println();
+	}
+	
+	public void doubleDouble(ArrayList<Double> myList3) {
+		for(int i =0; i < myList3.size(); i++) {
+			myList3.set(i, myList3.get(i)*2);
+		}
+		System.out.print(myList3);
+		System.out.println();
+	}
+	
+	public void alphabetList(int n) {
+		ArrayList<Character> myList = new ArrayList<Character>();
+		for(int i = 0; i<n;i++) {
+			if(i%2==0) {
+				myList.add(0,(char) (97+i));
+			}
+			else {
+				myList.add((char) (97+i));
+			}
+			
+		}
+		System.out.print(myList);
+	}
+	
+	
+	
+	public static void main(String []args) {
+		IntroToLists runner = new IntroToLists();
+		ArrayList<Character> list = new ArrayList<Character>();
+		list.add('e');
+		list.add('j');
+		list.add('n');
+		list.add('w');
+		list.add('h');
+		list.add('d');
+		list.add('d');
+		runner.removeSecond(list);
+		ArrayList<String> myList2 = new ArrayList<String>();
+		myList2.add("hello");
+		myList2.add("choose");
+		myList2.add("hmm");
+		runner.reverse(myList2);
+		ArrayList<Double> myList3 = new ArrayList<Double>();
+		myList3.add(3.4);
+		myList3.add(2.1);
+		myList3.add(9.8);
+		runner.doubleDouble(myList3);
+		runner.alphabetList(5);
+	}
+
+}
