@@ -1,0 +1,73 @@
+package IntroToJava;
+
+import java.util.ArrayList;
+
+public class MoreListAlgorithms {
+	
+	public void random(int n, int x) {
+		
+		ArrayList<Integer> numList = new ArrayList<Integer> ();
+		
+		for (int i = 0; i < n; i++) {
+			int num = (int)(Math.random() * 2 * x) - x;
+			numList.add(num);
+
+		}
+		System.out.print(numList); 
+		System.out.println(); 
+		
+	}
+	
+	public void separate(ArrayList<Integer> separateList) {
+		ArrayList<Integer> pos = new ArrayList<Integer>();
+		ArrayList<Integer> neg = new ArrayList<Integer>();
+		
+		for(int i = 0; i< separateList.size(); i++) {
+			if(separateList.get(i) > 0) {
+				pos.add(separateList.get(i));
+			}
+			else if(separateList.get(i) < 0) {
+				neg.add(separateList.get(i));
+			}
+		}
+		System.out.println(pos);
+		System.out.println(neg);
+	}
+	
+	public void reverse(ArrayList<Double> reverseList) {
+		double spot;
+
+		for(int i = 0; i < reverseList.size()/2; i++) {
+			spot = reverseList.get(i);
+			reverseList.set(i, reverseList.get(reverseList.size() - i - 1));
+			reverseList.set(reverseList.size() - i - 1, spot);
+		}
+	}
+	
+	
+	
+
+	
+	public static void main(String[] args) {
+		MoreListAlgorithms runner = new MoreListAlgorithms();
+		runner.random(3, 8);
+		ArrayList<Integer> separateList = new ArrayList<Integer>();
+		separateList.add(13);
+		separateList.add(1);
+		separateList.add(-8);
+		separateList.add(10);
+		separateList.add(-6);
+		separateList.add(-1);
+		runner.separate(separateList);
+		ArrayList<Double> reverseList = new ArrayList<Double>();
+		reverseList.add(8.0);
+		reverseList.add(3.2);
+		reverseList.add(5.3);
+		reverseList.add(7.0);
+		runner.reverse(reverseList);
+		System.out.println(reverseList);
+		
+		
+	}
+
+}
