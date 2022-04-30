@@ -1,0 +1,122 @@
+package IntroToJava;
+
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class MoreMaps {
+	
+	public static void company(HashMap<String, Integer> stonks) {
+        int sum = 0;
+        int max = 0;
+        
+        Scanner input = new Scanner(System.in);
+        String inp;
+        System.out.println("Give me company name!");
+        inp = input.nextLine();
+        
+        for (Integer num : stonks.values()) {
+            sum += num;
+            max = Math.max(max, num);
+        }
+        
+        if (Objects.equals(inp, "average")) {
+                System.out.println(sum/stonks.size());
+        }
+        else if (stonks.containsKey(inp)) {
+                System.out.println(stonks.get(inp));
+        }
+        else System.out.println(max);
+        
+    }
+
+    public static void target(HashMap<String, String> map) {
+        Scanner input = new Scanner(System.in);
+        String value, value2;
+        while (true) {
+            System.out.println("Choose a name!");
+            value = input.nextLine();
+            value2 = value;
+            if (map.containsKey(value)) {
+                do {
+                    System.out.println(value + " ");
+                    value = map.get(value);
+                } while (!Objects.equals(value2, value));
+            }
+        }
+    }
+    
+    public static void morseCodeTranslate(HashMap<String, String> morseCode) {
+       
+       
+        String message;
+        String code = "";
+        System.out.println("Translate here from english to morse code!");
+        Scanner input = new Scanner(System.in);
+        message = input.nextLine();
+        message = message.toLowerCase();
+        
+        for (int i = 0; i < message.length(); i++) {
+            if (morseCode.containsKey(message.substring(i, i+1))) {
+                code += morseCode.get(message.substring(i, i+1));
+                code += " ";
+            }
+        }
+        System.out.println(code);
+
+    }
+
+    
+
+    public static void main(String[] args) {
+    	
+        HashMap<String, Integer> comps = new HashMap<>();
+        comps.put("apple", 700);
+
+        comps.put("ibm", 400);
+
+        comps.put("tesla", 1000);
+        company(comps);
+        HashMap<String, String> people = new HashMap<>();
+        people.put("Ryan", "Yumna");
+
+        people.put("Cooper", "Anika");
+
+        people.put("Anika", "Ryan");
+
+        people.put("Yumna", "Cooper");
+        //target(people);
+        
+        HashMap<String, String> morseCode = new HashMap<>();
+        morseCode.put("a", ".-");
+        morseCode.put("b", "-...");
+        morseCode.put("c", "-.-.");
+        morseCode.put("d", "-..");
+        morseCode.put("e", ".");
+        morseCode.put("f", "..-.");
+        morseCode.put("g", "--.");
+        morseCode.put("h", "....");
+        morseCode.put("i", "..");
+        morseCode.put("j", ".---");
+        morseCode.put("k", "-.-");
+        morseCode.put("l", ".-..");
+        morseCode.put("m", "--");
+        morseCode.put("n", "-.");
+        morseCode.put("o", "---");
+        morseCode.put("p", ".--.");
+        morseCode.put("q", "--.-");
+        morseCode.put("r", ".-.");
+        morseCode.put("s", "...");
+        morseCode.put("t", "-");
+        morseCode.put("u", "..-");
+        morseCode.put("v", "...-");
+        morseCode.put("w", ".--");
+        morseCode.put("x", "-..-");
+        morseCode.put("y", "-.--");
+        morseCode.put("z", "--..");
+        morseCodeTranslate(morseCode);
+        
+    }
+
+}
